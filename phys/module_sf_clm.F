@@ -58870,6 +58870,7 @@ CONTAINS
                 , dwt_livecrootn_to_cwdn,dwt_deadcrootn_to_cwdn,retransn &
 #endif
                 ,nlcat,landusef,num_pft_input,pct_pft_input,input_pft_flag  &
+                ,HITCHHIKER                                                &
                  )
 
 
@@ -59297,6 +59298,11 @@ CONTAINS
      REAL, DIMENSION( ims:ime, jms:jme ), INTENT(OUT) :: UST_URB2D
      REAL, DIMENSION( ims:ime, jms:jme ), INTENT(IN) :: FRC_URB2D
      INTEGER, DIMENSION( ims:ime, jms:jme ), INTENT(IN) :: UTYPE_URB2D
+
+
+! UrbanM4
+     REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(IN) :: HITCHHIKER
+     REAL :: HITCH  ! SCALAR VALUE OF HITCHHIKER FIELD AT THIS POINT [-]
 
 
 ! output variables urban --> lsm
@@ -60327,6 +60333,9 @@ has_urban_physics : &
             z0_urb = 0
             vegfrac = 0
 !
+! UrbanM4
+            HITCH = 0
+!
 
 ! Call urban
 !sw++
@@ -60355,6 +60364,7 @@ has_urban_physics : &
                        TGRL_URB,SMR_URB,CMGR_URB, CHGR_URB, jmonth,     & ! H
                        DRELR_URB,DRELB_URB,                             & ! H
                        DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB,   &
+                       HITCH,                                           & ! UrbanM4
                        lf_urb_s, z0_urb, vegfrac)
 !sw--
 

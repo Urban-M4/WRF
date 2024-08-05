@@ -288,6 +288,7 @@ CONTAINS
      &          ,dgr_urb3d,dg_urb3d                                   & !multi-layer urb;:an GRZ
      &          ,lfr_urb3d,lfg_urb3d                                 & !multi-layer urban GRZ
      &          ,swddir,swddif                                        & !gl
+     &          ,HITCHHIKER                                           & !UrbanM4
      &          ,lp_urb2d,hi_urb2d,lb_urb2d,hgt_urb2d                 & !multi-layer urban
      &          ,mh_urb2d,stdh_urb2d,lf_urb2d                         &           
      &          ,lf_urb2d_s, z0_urb2d                                 &
@@ -1312,6 +1313,9 @@ CONTAINS
      REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT):: G_URB2D  !urban
      REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT):: RN_URB2D !urban
      REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT):: TS_URB2D !urban
+
+     REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: HITCHHIKER !UrbanM4
+
 !
      REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT)  :: FRC_URB2D  !urban
      INTEGER, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT)  :: UTYPE_URB2D  !urban
@@ -2759,6 +2763,7 @@ CONTAINS
                 lp_urb2d,hi_urb2d,lb_urb2d,hgt_urb2d,           & !H multi-layer urban
                 mh_urb2d,stdh_urb2D,lf_urb2d,                   & !SLUCM
                 lf_urb2d_s, z0_urb2d,                           & !SLUCM
+                HITCHHIKER,                                     & ! UrbanM4
                 th_phy,rho,p_phy,ust,                           & !I multi-layer urban
                 gmt,julday,xlong,xlat,                          & !I multi-layer urban
                 a_u_bep,a_v_bep,a_t_bep,a_q_bep,                & !O multi-layer urban
@@ -2892,6 +2897,7 @@ CONTAINS
                 lp_urb2d,hi_urb2d,lb_urb2d,hgt_urb2d,           & !H multi-layer urban
                 mh_urb2d,stdh_urb2D,lf_urb2d,                   & !SLUCM
                 lf_urb2d_s, z0_urb2d,                           & !SLUCM
+                HITCHHIKER,                                     & ! UrbanM4
                 th_phy,rho,p_phy,ust,                           & !I multi-layer urban
                 gmt,julday,xlong,xlat,                          & !I multi-layer urban
                 a_u_bep,a_v_bep,a_t_bep,a_q_bep,                & !O multi-layer urban
@@ -3230,6 +3236,7 @@ CONTAINS
                            lp_urb2d,       hi_urb2d,       lb_urb2d,  hgt_urb2d,            & !H multi-layer urban
                            mh_urb2d,     stdh_urb2d,       lf_urb2d,                        & !SLUCM
                          lf_urb2d_s,       z0_urb2d,         vegfra,                        & !SLUCM
+                         HITCHHIKER,                                                        & ! UrbanM4
                              th_phy,            rho,          p_phy,        ust,            & !I multi-layer urban
                                 gmt,         julday,          xlong,       xlat,            & !I multi-layer urban
                             a_u_bep,        a_v_bep,        a_t_bep,    a_q_bep,            & !O multi-layer urban
@@ -3803,6 +3810,7 @@ CONTAINS
                 FRC_URB2D, UTYPE_URB2D,                         & !I urban
                 cmcr_urb2d,tgr_urb2d,tgrl_urb3d,smr_urb3d,      & ! urban
                 drelr_urb2d,drelb_urb2d,drelg_urb2d,            & ! urban
+                HITCHHIKER,                                     & ! UrbanM4
                 flxhumr_urb2d,flxhumb_urb2d,flxhumg_urb2d,      &
 ! CLM subgrids
                 numc,nump,sabv,sabg,lwup,snl, &
