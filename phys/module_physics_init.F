@@ -179,7 +179,6 @@ CONTAINS
                          B_T_BEP,B_Q_BEP,B_E_BEP,DLG_BEP,        & !Optional multi-layer urban
                          DL_U_BEP,SF_BEP,VL_BEP,                 & !Optional multi-layer urban
                          TML,T0ML,HML,H0ML,HUML,HVML,TMOML,      & !Optional oml
-                         HITCHHIKER,                             & !UrbanM4
                          lakedepth2d,  savedtke12d,  snowdp2d,   h2osno2d,       & !lake
                          snl2d,        t_grnd2d,     t_lake3d,   lake_icefrac3d, & !lake
                          z_lake3d,     dz_lake3d,    t_soisno3d, h2osoi_ice3d,   & !lake
@@ -274,7 +273,8 @@ CONTAINS
                          ,alevsiz_cu,num_months,no_src_types_cu,aeromcu,aeropcu   & ! PSH/TWG 06/10/16                         
                          ,EFCG,EFCS,EFIG,EFIS,EFSG,EFSS                           & ! TWG
 #endif
-                          )
+                         ,HITCHHIKER                             & !UrbanM4
+                         )
 
 !-----------------------------------------------------------------
    USE module_domain
@@ -2947,7 +2947,6 @@ CHARACTER(LEN=8) :: name
     REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: MH_URB2D !SLUCM
     REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: STDH_URB2D !SLUCM
     REAL, OPTIONAL, DIMENSION( ims:ime, 4, jms:jme ), INTENT(INOUT) :: LF_URB2D !SLUCM
-    INTEGER, OPTIONAL, INTENT(IN)                                :: use_hitchhiker !UrbanM4
     REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: HITCHHIKER !UrbanM4
    REAL, OPTIONAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(INOUT) :: A_U_BEP 
    REAL, OPTIONAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(INOUT) :: A_V_BEP 

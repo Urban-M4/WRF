@@ -111,7 +111,6 @@ CONTAINS
                   lp_urb2d,hi_urb2d,lb_urb2d,hgt_urb2d,         & !H multi-layer urban
                   mh_urb2d,stdh_urb2d,lf_urb2d,                 & !SLUCM
                   lf_urb2d_s, z0_urb2d,                         & !SLUCM
-                  HITCHHIKER,                                    & ! UrbanM4
                   th_phy,rho,p_phy,ust,                         & !I multi-layer urban
                   gmt,julday,xlong,xlat,                        & !I multi-layer urban
                   a_u_bep,a_v_bep,a_t_bep,a_q_bep,              & !O multi-layer urban
@@ -124,7 +123,7 @@ CONTAINS
                  ,SDA_HFX, SDA_QFX, HFX_BOTH, QFX_BOTH, QNORM, fasdas     &   !fasdas
                  ,RC2,XLAI2                                         &
                  ,IRR_CHAN                                          &
-                 )
+                 ,HITCHHIKER)                                    ! UrbanM4
 
 !----------------------------------------------------------------
     IMPLICIT NONE
@@ -1457,8 +1456,9 @@ CONTAINS
                        TGRL_URB,SMR_URB,CMGR_URB,CHGR_URB,jmonth,       & ! H
                        DRELR_URB,DRELB_URB,                             & ! H
                        DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB,   &
-                       HITCH,                                           & ! UrbanM4
-                       lf_urb_s, z0_urb, vegfrac)
+                       lf_urb_s, z0_urb, vegfrac,                       &
+                       HITCH                                            & ! UrbanM4
+            )
 
 #if 0
           IF(IPRINT) THEN
@@ -2451,7 +2451,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                   lp_urb2d,hi_urb2d,lb_urb2d,hgt_urb2d,         & !H multi-layer urban
                   mh_urb2d,stdh_urb2d,lf_urb2d,                 & !SLUCM
                   lf_urb2d_s, z0_urb2d,                         & !SLUCM
-                  HITCHHIKER,                                   & !UrbanM4
                   th_phy,rho,p_phy,ust,                         & !I multi-layer urban
                   gmt,julday,xlong,xlat,                        & !I multi-layer urban
                   a_u_bep,a_v_bep,a_t_bep,a_q_bep,              & !O multi-layer urban
@@ -2464,6 +2463,7 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                  ,SDA_HFX, SDA_QFX, HFX_BOTH, QFX_BOTH, QNORM, fasdas     &   !fasdas
                  ,RC2,XLAI2                                     & !O
                  ,IRR_CHAN                                      &
+                  ,HITCHHIKER                                   & !UrbanM4
                   )
 
 !----------------------------------------------------------------
@@ -3919,8 +3919,9 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                              TGRL_URB,SMR_URB,CMGR_URB,CHGR_URB,jmonth,       & ! H
                              DRELR_URB,DRELB_URB,                             & ! H
                              DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB,   &
-                             HITCH,                                           & ! UrbanM4
-                             lf_urb_s, z0_urb, vegfrac)
+                             lf_urb_s, z0_urb, vegfrac,                       &
+                             HITCH                                            & ! UrbanM4
+                             )
 
 #if 0
                 IF(IPRINT) THEN
@@ -4802,8 +4803,9 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                              TGRL_URB,SMR_URB,CMGR_URB,CHGR_URB,jmonth,       & ! H
                              DRELR_URB,DRELB_URB,                             & ! H
                              DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB,   &
-                             HITCH,                                           & ! UrbanM4
-                             lf_urb_s, z0_urb, vegfrac)
+                             lf_urb_s, z0_urb, vegfrac,                       &
+                             HITCH                                            & ! UrbanM4
+                             )
 
 #if 0
                 IF(IPRINT) THEN

@@ -846,7 +846,6 @@ BENCH_START(surf_driver_tim)
      &        ,LFG_URB3D=grid%lfg_urb3d                                   & !GRZ
      &        ,LP_URB2D=grid%lp_urb2d,HI_URB2D=grid%hi_urb2d              & !multi-layer urban
      &        ,LB_URB2D=grid%lb_urb2d,HGT_URB2D=grid%hgt_urb2d            & !multi-layer urban
-     &        ,HITCHHIKER=grid%hitchhiker                                 & !UrbanM4
      &        ,MH_URB2D=grid%mh_urb2d,STDH_URB2D=grid%stdh_urb2d          & !SLUCM
      &        ,LF_URB2D=grid%lf_urb2d                                           & 
      &        ,lf_urb2d_s=grid%lf_urb2d_s, z0_urb2d=grid%z0_urb2d               &
@@ -1088,6 +1087,7 @@ BENCH_START(surf_driver_tim)
      &        ,pert_noah_t=config_flags%pert_noah_t                                  &
      &        ,pert_noah_smois=config_flags%pert_noah_smois                          &
      &        ,pert_noah_tslb=config_flags%pert_noah_tslb                            &
+     &        ,HITCHHIKER=grid%hitchhiker                                            & !UrbanM4
      &                                                           )
 
 #ifdef WRF_HYDRO

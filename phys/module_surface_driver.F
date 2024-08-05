@@ -288,7 +288,6 @@ CONTAINS
      &          ,dgr_urb3d,dg_urb3d                                   & !multi-layer urb;:an GRZ
      &          ,lfr_urb3d,lfg_urb3d                                 & !multi-layer urban GRZ
      &          ,swddir,swddif                                        & !gl
-     &          ,HITCHHIKER                                           & !UrbanM4
      &          ,lp_urb2d,hi_urb2d,lb_urb2d,hgt_urb2d                 & !multi-layer urban
      &          ,mh_urb2d,stdh_urb2d,lf_urb2d                         &           
      &          ,lf_urb2d_s, z0_urb2d                                 &
@@ -327,6 +326,7 @@ CONTAINS
      &          ,irrigation,sf_surf_irr_scheme, irr_daily_amount      & !IRRIG
      &          ,irr_start_hour,irr_num_hours,irr_start_julianday     &
      &          ,irr_end_julianday,irr_freq,irr_ph,irr_rand_field     &
+     &          ,HITCHHIKER                                           & !UrbanM4
      &                                                             )
 
    USE module_state_description, ONLY : SFCLAYSCHEME              &
@@ -2763,7 +2763,6 @@ CONTAINS
                 lp_urb2d,hi_urb2d,lb_urb2d,hgt_urb2d,           & !H multi-layer urban
                 mh_urb2d,stdh_urb2D,lf_urb2d,                   & !SLUCM
                 lf_urb2d_s, z0_urb2d,                           & !SLUCM
-                HITCHHIKER,                                     & ! UrbanM4
                 th_phy,rho,p_phy,ust,                           & !I multi-layer urban
                 gmt,julday,xlong,xlat,                          & !I multi-layer urban
                 a_u_bep,a_v_bep,a_t_bep,a_q_bep,                & !O multi-layer urban
@@ -2774,7 +2773,9 @@ CONTAINS
                 ,sfcheadrt,INFXSRT, soldrain                    & !hydro
 #endif
                 ,SDA_HFX, SDA_QFX, HFX_BOTH, QFX_BOTH, QNORM, fasdas    & ! fasdas
-                ,RS,XLAIDYN,IRRIGATION_CHANNEL)
+                ,RS,XLAIDYN,IRRIGATION_CHANNEL                  &
+                ,HITCHHIKER                                     & ! UrbanM4
+             )
            ELSE
                CALL wrf_error_fatal('Lack arguments to call lsm_mosaic')
            ENDIF
@@ -2897,7 +2898,6 @@ CONTAINS
                 lp_urb2d,hi_urb2d,lb_urb2d,hgt_urb2d,           & !H multi-layer urban
                 mh_urb2d,stdh_urb2D,lf_urb2d,                   & !SLUCM
                 lf_urb2d_s, z0_urb2d,                           & !SLUCM
-                HITCHHIKER,                                     & ! UrbanM4
                 th_phy,rho,p_phy,ust,                           & !I multi-layer urban
                 gmt,julday,xlong,xlat,                          & !I multi-layer urban
                 a_u_bep,a_v_bep,a_t_bep,a_q_bep,                & !O multi-layer urban
@@ -2908,7 +2908,7 @@ CONTAINS
                 ,sfcheadrt,INFXSRT, soldrain                    &
 #endif
                 ,SDA_HFX, SDA_QFX, HFX_BOTH, QFX_BOTH, QNORM, fasdas    &
-                ,RS,XLAIDYN,IRRIGATION_CHANNEL)
+                ,RS,XLAIDYN,IRRIGATION_CHANNEL,HITCHHIKER)  ! UrbanM4
          ENDIF
 
          if (pert_noah .and. multi_perturb == 1) then
@@ -3236,15 +3236,16 @@ CONTAINS
                            lp_urb2d,       hi_urb2d,       lb_urb2d,  hgt_urb2d,            & !H multi-layer urban
                            mh_urb2d,     stdh_urb2d,       lf_urb2d,                        & !SLUCM
                          lf_urb2d_s,       z0_urb2d,         vegfra,                        & !SLUCM
-                         HITCHHIKER,                                                        & ! UrbanM4
-                             th_phy,            rho,          p_phy,        ust,            & !I multi-layer urban
-                                gmt,         julday,          xlong,       xlat,            & !I multi-layer urban
-                            a_u_bep,        a_v_bep,        a_t_bep,    a_q_bep,            & !O multi-layer urban
-                            a_e_bep,        b_u_bep,        b_v_bep,                        & !O multi-layer urban
-                            b_t_bep,        b_q_bep,        b_e_bep,    dlg_bep,            & !O multi-layer urban
-                           dl_u_bep,         sf_bep,         vl_bep)                          !O multi-layer urban
-	 
-	 ENDIF 
+                         th_phy,            rho,          p_phy,        ust,            & !I multi-layer urban
+                         gmt,         julday,          xlong,       xlat,            & !I multi-layer urban
+                         a_u_bep,        a_v_bep,        a_t_bep,    a_q_bep,            & !O multi-layer urban
+                         a_e_bep,        b_u_bep,        b_v_bep,                        & !O multi-layer urban
+                         b_t_bep,        b_q_bep,        b_e_bep,    dlg_bep,            & !O multi-layer urban
+                         dl_u_bep,         sf_bep,         vl_bep,                       &   !O multi-layer urban
+                         HITCHHIKER                                                        & ! UrbanM4
+      )
+
+	 ENDIF
 
   IF ( iopt_run .EQ. 5 ) THEN
      IF ( MOD(itimestep,STEPWTD) .EQ. 0 ) THEN ! STEPWTD always and only non-zero for iopt_run == 5
@@ -3810,7 +3811,6 @@ CONTAINS
                 FRC_URB2D, UTYPE_URB2D,                         & !I urban
                 cmcr_urb2d,tgr_urb2d,tgrl_urb3d,smr_urb3d,      & ! urban
                 drelr_urb2d,drelb_urb2d,drelg_urb2d,            & ! urban
-                HITCHHIKER,                                     & ! UrbanM4
                 flxhumr_urb2d,flxhumb_urb2d,flxhumg_urb2d,      &
 ! CLM subgrids
                 numc,nump,sabv,sabg,lwup,snl, &
@@ -3880,6 +3880,7 @@ CONTAINS
                 ,dwt_livecrootn_to_cwdn,dwt_deadcrootn_to_cwdn,retransn &
 #endif
                 ,nlcat,landusef,num_pft_input,pct_pft_input,input_pft_flag &
+                ,HITCHHIKER                                     & ! UrbanM4
                  )
 
          IF ( FRACTIONAL_SEAICE == 1 ) THEN

@@ -60334,7 +60334,7 @@ has_urban_physics : &
             vegfrac = 0
 !
 ! UrbanM4
-            HITCH = 0
+            HITCH = 0.
 !
 
 ! Call urban
