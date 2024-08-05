@@ -320,6 +320,7 @@ USE module_model_constants, ONLY :  piconst
                     lp_urb,hgt_urb,frc_urb,lb_urb,zo_check,           & ! O
                     CMCR,TGR,TGRL,SMR,CMGR_URB,CHGR_URB,jmonth,       & ! H
                     DRELR,DRELB,DRELG,FLXHUMR,FLXHUMB,FLXHUMG,        &
+                    HITCH,                                            & ! I
                     lf_urb_s, z0_urb, vegfrac_in)
 
    IMPLICIT NONE
@@ -401,6 +402,10 @@ USE module_model_constants, ONLY :  piconst
    REAL, INTENT(INOUT), DIMENSION(4) :: lf_urb   ! frontal area index [-]
    REAL, INTENT(INOUT) :: zo_check  ! check for printing ZOC
 
+!-------------------------------------------------------------------------------
+! I: Urban-M4 spatially explicit parameters for SLUCM
+!-------------------------------------------------------------------------------
+   REAL, INTENT(IN)      :: HITCH ! test added state variable [-]
 !-------------------------------------------------------------------------------
 ! I: Distributed aerodynamics parameters
 !-------------------------------------------------------------------------------
@@ -2598,8 +2603,12 @@ ENDIF
                              A_E_BEP,B_U_BEP,B_V_BEP,                      & ! inout multi-layer urban
                              B_T_BEP,B_Q_BEP,B_E_BEP,DLG_BEP,              & ! inout multi-layer urban
                              DL_U_BEP,SF_BEP,VL_BEP,                       & ! inout multi-layer urban
+                             HITCHHIKER,                                   & ! UrbanM4
                              FRC_URB2D, UTYPE_URB2D,USE_WUDAPT_LCZ)                         ! inout
    IMPLICIT NONE
+
+   ! UrbanM4
+   REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT)       :: HITCHHIKER
 
    INTEGER, INTENT(IN) :: ISURBAN, sf_urban_physics,use_wudapt_lcz
    INTEGER, INTENT(IN) :: LCZ_1,LCZ_2,LCZ_3,LCZ_4,LCZ_5,LCZ_6,LCZ_7,LCZ_8,LCZ_9,LCZ_10,LCZ_11

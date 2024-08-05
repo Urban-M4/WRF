@@ -1087,6 +1087,7 @@ BENCH_START(surf_driver_tim)
      &        ,pert_noah_t=config_flags%pert_noah_t                                  &
      &        ,pert_noah_smois=config_flags%pert_noah_smois                          &
      &        ,pert_noah_tslb=config_flags%pert_noah_tslb                            &
+     &        ,HITCHHIKER=grid%hitchhiker                                            & !UrbanM4
      &                                                           )
 
 #ifdef WRF_HYDRO

@@ -123,7 +123,7 @@ CONTAINS
                  ,SDA_HFX, SDA_QFX, HFX_BOTH, QFX_BOTH, QNORM, fasdas     &   !fasdas
                  ,RC2,XLAI2                                         &
                  ,IRR_CHAN                                          &
-                 )
+                 ,HITCHHIKER)                                    ! UrbanM4
 
 !----------------------------------------------------------------
     IMPLICIT NONE
@@ -466,6 +466,7 @@ CONTAINS
      REAL, OPTIONAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN) :: P_PHY
      REAL, OPTIONAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN) :: RHO
      REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: UST
+     REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: HITCHHIKER
 
      LOGICAL, intent(in) :: rdlai2d
      LOGICAL, intent(in) :: USEMONALB
@@ -596,6 +597,7 @@ CONTAINS
      REAL :: lp_urb
      REAL :: hgt_urb
      REAL, DIMENSION(4) :: lf_urb
+     REAL :: HITCH         ! UrbanM4 test variable [-]
 ! Distributed aerodynamics parameters
      REAL :: lf_urb_s
      REAL :: z0_urb
@@ -1427,6 +1429,9 @@ CONTAINS
             lf_urb_s = lf_urb2d_s(I, J)
             z0_urb = z0_urb2d(I, J)
             vegfrac = vegfra(I, J) / 100
+
+! UrbanM4
+            HITCH = HITCHHIKER(I, J)
 !
 ! Call urban
             CALL cal_mon_day(julian,julyr,jmonth,jday)
@@ -1451,7 +1456,9 @@ CONTAINS
                        TGRL_URB,SMR_URB,CMGR_URB,CHGR_URB,jmonth,       & ! H
                        DRELR_URB,DRELB_URB,                             & ! H
                        DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB,   &
-                       lf_urb_s, z0_urb, vegfrac)
+                       lf_urb_s, z0_urb, vegfrac,                       &
+                       HITCH                                            & ! UrbanM4
+            )
 
 #if 0
           IF(IPRINT) THEN
@@ -2456,6 +2463,7 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                  ,SDA_HFX, SDA_QFX, HFX_BOTH, QFX_BOTH, QNORM, fasdas     &   !fasdas
                  ,RC2,XLAI2                                     & !O
                  ,IRR_CHAN                                      &
+                  ,HITCHHIKER                                   & !UrbanM4
                   )
 
 !----------------------------------------------------------------
@@ -2798,6 +2806,7 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
      REAL, OPTIONAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN) :: P_PHY
      REAL, OPTIONAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN) :: RHO
      REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: UST
+     REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: HITCHHIKER
 
      LOGICAL, intent(in) :: rdlai2d
      LOGICAL, intent(in) :: USEMONALB
@@ -2926,6 +2935,7 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
      REAL :: lp_urb
      REAL :: hgt_urb
      REAL, DIMENSION(4) :: lf_urb
+     REAL :: HITCH         ! UrbanM4 test variable [-]
 ! Distributed aerodynamics parameters
      REAL :: lf_urb_s
      REAL :: z0_urb
@@ -3883,6 +3893,8 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                   lf_urb_s = lf_urb2d_s(I, J)
                   z0_urb = z0_urb2d(I, J)
                   vegfrac = vegfra(I, J) / 100.
+      ! UrbanM4
+                  HITCH = HITCHHIKER(I, J)
       !
       ! Call urban
                   CALL cal_mon_day(julian,julyr,jmonth,jday)      
@@ -3907,7 +3919,9 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                              TGRL_URB,SMR_URB,CMGR_URB,CHGR_URB,jmonth,       & ! H
                              DRELR_URB,DRELB_URB,                             & ! H
                              DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB,   &
-                             lf_urb_s, z0_urb, vegfrac)
+                             lf_urb_s, z0_urb, vegfrac,                       &
+                             HITCH                                            & ! UrbanM4
+                             )
 
 #if 0
                 IF(IPRINT) THEN
@@ -4763,6 +4777,8 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                   z0_urb = z0_urb2d(I, J)
                   vegfrac = vegfra(I, J) / 100.0
 
+      ! UrbanM4
+                  HITCH = HITCHHIKER(I, J)
       !
       ! Call urban
                   CALL cal_mon_day(julian,julyr,jmonth,jday)        
@@ -4787,7 +4803,9 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                              TGRL_URB,SMR_URB,CMGR_URB,CHGR_URB,jmonth,       & ! H
                              DRELR_URB,DRELB_URB,                             & ! H
                              DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB,   &
-                             lf_urb_s, z0_urb, vegfrac)
+                             lf_urb_s, z0_urb, vegfrac,                       &
+                             HITCH                                            & ! UrbanM4
+                             )
 
 #if 0
                 IF(IPRINT) THEN

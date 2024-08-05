@@ -834,6 +834,9 @@ state    real   LF_URB2D_S     ij       misc      1        -     i01r     "LF_UR
 # AHE with month and hour dimension flattened to one dimension, Jan = (0:23), Feb = (24:47)
 state    real   AHE            i{m_hr}j  misc       1        -     i01r   "AHE"        "Anthropogenic heat emission" "W m-2"
 
+# Custom input for UrbanM4
+state    real   HITCHHIKER     ij       misc      1        -     irh      "HITCHHIKER" "Custom variable inserted for testing" "dimensionless"
+
 # lsm State Variables
 
 state    real   SMOIS            ilj     -          1         Z     i02rhd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)    "SMOIS"            "SOIL MOISTURE"     "m3 m-3"
@@ -2547,6 +2550,10 @@ rconfig   integer ishallow                namelist,physics      1             0 
 rconfig   real    convtrans_avglen_m      namelist,physics      1             30      rh    "convtrans_avglen_m"  "averaging time for convective transport output variables (minutes)"      ""
 rconfig   integer num_land_cat            namelist,physics	1            21       -      "num_land_cat"                  ""      ""
 rconfig   integer use_wudapt_lcz          namelist,physics      1             0       -      "use_wudapt_lcz"                ""      ""
+
+# Custom namelist option for UrbanM4
+rconfig   integer use_hitchhiker          namelist,physics      1             0       -      "use_hitchhiker"                "for testing addition of custom parameter"      ""
+
 rconfig   logical slucm_distributed_drag  namelist,physics      1          .false.    rh      "slucm_distributed_drag"                ""      ""
 rconfig   integer distributed_ahe_opt     namelist,physics      1            0        rh     "distributed_ahe_opt" "AHE handling: 0= no AHE, 1=add to first level temperature tendency, 2=add to surface sensible heat flux" ""
 rconfig   integer num_soil_cat            namelist,physics	1            16       -      "num_soil_cat"                  ""      ""
