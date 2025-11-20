@@ -823,7 +823,10 @@ USE module_model_constants, ONLY :  piconst
    END IF
 
    IF( ZDC+Z0C+2. >= ZA) THEN
-    FATAL_ERROR("ZDC + Z0C + 2m is larger than the 1st WRF level - Stop in subroutine urban - change ZDC and Z0C" ) 
+     !FATAL_ERROR("ZDC + Z0C + 2m is larger than the 1st WRF level - Stop in subroutine urban - change ZDC and Z0C" ) 
+     write(mesg,*) 'warning: ZDC higher than 1st WRF level, adjusting ',ZDC, ZA - Z0C - 4.
+     WRITE_MESSAGE(mesg)
+     ZDC = ZA - Z0C - 4.
    END IF
 
    IF(.NOT.LSOLAR) THEN
