@@ -187,6 +187,8 @@ CONTAINS
      &          ,num_road_layers, dzr, dzb, dzg                       & !I urban
      &          ,tr_urb2d,tb_urb2d,tg_urb2d,tc_urb2d,qc_urb2d         & !H urban
      &          ,uc_urb2d                                             & !H urban
+     &          ,albr_urb2d, albb_urb2d, albg_urb2d                   & !I urban explicit radiation PK2025
+     &          ,epsr_urb2d, epsb_urb2d, epsg_urb2d                   & !I urban explicit radiation PK2025
      &          ,xxxr_urb2d,xxxb_urb2d,xxxg_urb2d,xxxc_urb2d          & !H urban
      &          ,cmcr_urb2d,tgr_urb2d,tgrl_urb3d,smr_urb3d            & !H urban
      &          ,julian,julyr,drelr_urb2d,drelb_urb2d,drelg_urb2d     & !H urban
@@ -1288,6 +1290,14 @@ CONTAINS
      REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT):: XXXB_URB2D !urban
      REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT):: XXXG_URB2D !urban
      REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT):: XXXC_URB2D !urban
+
+!  Explicit radiation parameters PK2025
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: albr_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: albb_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: albg_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: epsr_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: epsb_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: epsg_urb2d
 
      REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: DRELR_URB2D
      REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: DRELB_URB2D
@@ -2706,6 +2716,8 @@ CONTAINS
                 ,cmgr_sfcdif,chgr_sfcdif                        &
                 ,tr_urb2d,tb_urb2d,tg_urb2d,tc_urb2d,qc_urb2d,  & !H urban
                 uc_urb2d,                                       & !H urban
+                albr_urb2d, albb_urb2d, albg_urb2d,             & !I urban explicit radiation PK2025
+                epsr_urb2d, epsb_urb2d, epsg_urb2d,             & !I urban explicit radiation PK2025
                 xxxr_urb2d,xxxb_urb2d,xxxg_urb2d,xxxc_urb2d,    & !H urban
                 trl_urb3d,tbl_urb3d,tgl_urb3d,                  & !H urban
                 sh_urb2d,lh_urb2d,g_urb2d,rn_urb2d,ts_urb2d,    & !H urban
@@ -2850,6 +2862,8 @@ CONTAINS
                 ,cmgr_sfcdif,chgr_sfcdif                        &
                 ,tr_urb2d,tb_urb2d,tg_urb2d,tc_urb2d,qc_urb2d,  & !H urban
                 uc_urb2d,                                       & !H urban
+                albr_urb2d, albb_urb2d, albg_urb2d,             & !I urban explicit radiation PK2025
+                epsr_urb2d, epsb_urb2d, epsg_urb2d,             & !I urban explicit radiation PK2025
                 xxxr_urb2d,xxxb_urb2d,xxxg_urb2d,xxxc_urb2d,    & !H urban
                 trl_urb3d,tbl_urb3d,tgl_urb3d,                  & !H urban
                 sh_urb2d,lh_urb2d,g_urb2d,rn_urb2d,ts_urb2d,    & !H urban
@@ -3231,6 +3245,8 @@ CONTAINS
                            lp_urb2d,       hi_urb2d,       lb_urb2d,  hgt_urb2d,            & !H multi-layer urban
                            mh_urb2d,     stdh_urb2d,       lf_urb2d,                        & !SLUCM
                          lf_urb2d_s,       z0_urb2d,         vegfra,                        & !SLUCM
+                         albr_urb2d,     albb_urb2d,     albg_urb2d,                        & !I urban explicit radiation PK2025
+                         epsr_urb2d,     epsb_urb2d,     epsg_urb2d,                        & !I urban explicit radiation PK2025
                              th_phy,            rho,          p_phy,        ust,            & !I multi-layer urban
                                 gmt,         julday,          xlong,       xlat,            & !I multi-layer urban
                             a_u_bep,        a_v_bep,        a_t_bep,    a_q_bep,            & !O multi-layer urban
@@ -3805,6 +3821,8 @@ CONTAINS
                 cmcr_urb2d,tgr_urb2d,tgrl_urb3d,smr_urb3d,      & ! urban
                 drelr_urb2d,drelb_urb2d,drelg_urb2d,            & ! urban
                 flxhumr_urb2d,flxhumb_urb2d,flxhumg_urb2d,      &
+                albr_urb2d, albb_urb2d, albg_urb2d,             & !I explicit radiation PK2025
+                epsr_urb2d, epsb_urb2d, epsg_urb2d,             & !I explicit radiation PK2025
 ! CLM subgrids
                 numc,nump,sabv,sabg,lwup,snl, &
                 snowdp,wtc,wtp,h2osno,t_grnd,t_veg,         &

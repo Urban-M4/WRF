@@ -777,6 +777,9 @@ BENCH_START(surf_driver_tim)
      &        ,TG_URB2D=grid%tg_urb2d                                     & !H urban
      &        ,TC_URB2D=grid%tc_urb2d ,QC_URB2D=grid%qc_urb2d             & !H urban
      &        ,UC_URB2D=grid%uc_urb2d                                     & !H urban
+     &        ,albr_urb2d=grid%albr_urb2d, albb_urb2d=grid%albb_urb2d     & !I urban explicit radiation PK2025
+     &        ,albg_urb2d=grid%albg_urb2d, epsr_urb2d=grid%epsr_urb2d     & !I urban explicit radiation PK2025
+     &        ,epsb_urb2d=grid%epsb_urb2d, epsg_urb2d=grid%epsg_urb2d     & !I urban explicit radiation PK2025
      &        ,XXXR_URB2D=grid%xxxr_urb2d                                 &
      &        ,XXXB_URB2D=grid%xxxb_urb2d                                 & !H urban
      &        ,XXXG_URB2D=grid%xxxg_urb2d                                 &
