@@ -835,12 +835,12 @@ state    real   LF_URB2D_S     ij       misc      1        -     i01r     "LF_UR
 state    real   AHE            i{m_hr}j  misc       1        -     i01r   "AHE"        "Anthropogenic heat emission" "W m-2"
 
 # Additional urban model parameters - PK2025
-state    real   ALBR_URB2D       ij  misc      1        -     irh       "ALBR_URB2D"   "surface albedo of roof" "-"
-state    real   ALBB_URB2D       ij  misc      1        -     irh       "ALBB_URB2D"   "surface albedo of building wall" "-"
-state    real   ALBG_URB2D       ij  misc      1        -     irh       "ALBG_URB2D"   "surface albedo of road" "-"
-state    real   EPSR_URB2D       ij  misc      1        -     irh       "EPSR_URB2D"   "surface emissivity of roof" "-"
-state    real   EPSB_URB2D       ij  misc      1        -     irh       "EPSB_URB2D"   "surface emissivity of building wall" "-"
-state    real   EPSG_URB2D       ij  misc      1        -     irh       "EPSG_URB2D"   "surface emissivity of road" "-"
+state    real   ALBR_URB2D     ij       misc      1        -     i012rh   "ALBR_URB2D"   "surface albedo of roof" "-"
+state    real   ALBB_URB2D     ij       misc      1        -     i012rh   "ALBB_URB2D"   "surface albedo of building wall" "-"
+state    real   ALBG_URB2D     ij       misc      1        -     i012rh   "ALBG_URB2D"   "surface albedo of road" "-"
+state    real   EPSR_URB2D     ij       misc      1        -     i012rh   "EPSR_URB2D"   "surface emissivity of roof" "-"
+state    real   EPSB_URB2D     ij       misc      1        -     i012rh   "EPSB_URB2D"   "surface emissivity of building wall" "-"
+state    real   EPSG_URB2D     ij       misc      1        -     i012rh   "EPSG_URB2D"   "surface emissivity of road" "-"
 
 # lsm State Variables
 
