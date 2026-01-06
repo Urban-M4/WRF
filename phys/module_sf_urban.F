@@ -8,7 +8,7 @@ use module_wrf_error
 #define FATAL_ERROR(M) call wrf_error_fatal( M )
 #define WRITE_MESSAGE(M) call wrf_message( M )
 #endif
-
+USE module_configure
 USE module_model_constants, ONLY :  piconst
 
 !===============================================================================
@@ -411,6 +411,9 @@ USE module_model_constants, ONLY :  piconst
   REAL, INTENT(IN) :: epsr_urb   ! surface emissivity of roof [-]
   REAL, INTENT(IN) :: epsb_urb   ! surface emissivity of building wall [-]
   REAL, INTENT(IN) :: epsg_urb   ! surface emissivity of road [-]
+  CHARACTER(len=32) :: extra_var_name
+  INTEGER :: n_extra_vars
+
 !-------------------------------------------------------------------------------
 ! I: Distributed aerodynamics parameters
 !-------------------------------------------------------------------------------
@@ -801,12 +804,26 @@ USE module_model_constants, ONLY :  piconst
  !End NUDAPT Modification
 
 ! PK2025, use spatially explicit radiation parameters if provided
-if (albr_urb /= -999.) ALBR=albr_urb
-if (albb_urb /= -999.) ALBB=albb_urb
-if (albg_urb /= -999.) ALBG=albg_urb
-if (epsr_urb /= -999.) EPSR=epsr_urb
-if (epsb_urb /= -999.) EPSB=epsb_urb
-if (epsg_urb /= -999.) EPSG=epsg_urb
+ CALL nl_get_num_urb2d_additional_vars(1, n_extra_vars) 
+ do iteration = 1, n_extra_vars
+   CALL nl_get_urb2d_additional_vars(iteration, extra_var_name) 
+   select case(trim(extra_var_name))
+   case('ALBB')
+      if (albb_urb /= -999.) ALBB=albb_urb
+   case('ALBR')
+      if (albr_urb /= -999.) ALBR=albr_urb
+   case('ALBG')
+      if (albg_urb /= -999.) ALBG=albg_urb
+   case('EPSB')
+      if (epsb_urb /= -999.) EPSB=epsb_urb
+   case('EPSR')
+      if (epsr_urb /= -999.) EPSR=epsr_urb
+   case('EPSG')
+      if (epsg_urb /= -999.) EPSG=epsg_urb
+   case default
+       write(*,*) 'WARNING: Unknown urb2d additional variable: ', trim(extra_var_name)
+   end select
+end do
 
 ! Miao, 2007/01/17, cal. ah
    if(ahoption==1) AH=AH*ahdiuprf(tloc)
