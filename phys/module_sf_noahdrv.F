@@ -1440,14 +1440,12 @@ CONTAINS
             vegfrac = vegfra(I, J) / 100
 !
 ! Explicit radiation parameters PK2025
-            ! x = merge(ifTrue, ifFalse, Condition)
-            albr_urb = merge(albr_urb2d(i,j), -999., present(albr_urb2d))
-            albb_urb = merge(albb_urb2d(i,j), -999., present(albb_urb2d))
-            albg_urb = merge(albg_urb2d(i,j), -999., present(albg_urb2d))
-            epsr_urb = merge(epsr_urb2d(i,j), -999., present(epsr_urb2d))
-            epsb_urb = merge(epsb_urb2d(i,j), -999., present(epsb_urb2d))
-            epsg_urb = merge(epsg_urb2d(i,j), -999., present(epsg_urb2d))
-!
+            albr_urb = albr_urb2d(i,j)
+            albb_urb = albb_urb2d(i,j)
+            albg_urb = albg_urb2d(i,j)
+            epsr_urb = epsr_urb2d(i,j)
+            epsb_urb = epsb_urb2d(i,j)
+            epsg_urb = epsg_urb2d(i,j)
 !
 ! Call urban
             CALL cal_mon_day(julian,julyr,jmonth,jday)
@@ -3919,13 +3917,12 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                   z0_urb = z0_urb2d(I, J)
                   vegfrac = vegfra(I, J) / 100.
       ! Explicit radiation parameters PK2025
-                  ! x = merge(ifTrue, ifFalse, Condition)
-                  albr_urb = merge(albr_urb2d(i,j), -999., present(albr_urb2d))
-                  albb_urb = merge(albb_urb2d(i,j), -999., present(albb_urb2d))
-                  albg_urb = merge(albg_urb2d(i,j), -999., present(albg_urb2d))
-                  epsr_urb = merge(epsr_urb2d(i,j), -999., present(epsr_urb2d))
-                  epsb_urb = merge(epsb_urb2d(i,j), -999., present(epsb_urb2d))
-                  epsg_urb = merge(epsg_urb2d(i,j), -999., present(epsg_urb2d))
+                  albr_urb = albr_urb2d(i,j)
+                  albb_urb = albb_urb2d(i,j)
+                  albg_urb = albg_urb2d(i,j)
+                  epsr_urb = epsr_urb2d(i,j)
+                  epsb_urb = epsb_urb2d(i,j)
+                  epsg_urb = epsg_urb2d(i,j)
 !
       !
       ! Call urban
@@ -4810,14 +4807,13 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                   z0_urb = z0_urb2d(I, J)
                   vegfrac = vegfra(I, J) / 100.0
       ! Explicit radiation parameters PK2025
-                  ! x = merge(ifTrue, ifFalse, Condition)
-                  albr_urb = merge(albr_urb2d(i,j), -999., present(albr_urb2d))
-                  albb_urb = merge(albb_urb2d(i,j), -999., present(albb_urb2d))
-                  albg_urb = merge(albg_urb2d(i,j), -999., present(albg_urb2d))
-                  epsr_urb = merge(epsr_urb2d(i,j), -999., present(epsr_urb2d))
-                  epsb_urb = merge(epsb_urb2d(i,j), -999., present(epsb_urb2d))
-                  epsg_urb = merge(epsg_urb2d(i,j), -999., present(epsg_urb2d))
-!
+                  albr_urb = albr_urb2d(i,j)
+                  albb_urb = albb_urb2d(i,j)
+                  albg_urb = albg_urb2d(i,j)
+                  epsr_urb = epsr_urb2d(i,j)
+                  epsb_urb = epsb_urb2d(i,j)
+                  epsg_urb = epsg_urb2d(i,j)
+      !
       !
       ! Call urban
                   CALL cal_mon_day(julian,julyr,jmonth,jday)        

@@ -60338,13 +60338,12 @@ has_urban_physics : &
             z0_urb = 0
             vegfrac = 0
 ! Explicit radiation parameters PK2025
-            ! x = merge(ifTrue, ifFalse, Condition)
-            albr_urb = merge(ALBR_URB2D(I,J), -999., present(ALBR_URB2D))
-            albb_urb = merge(ALBB_URB2D(I,J), -999., present(ALBB_URB2D))
-            albg_urb = merge(ALBG_URB2D(I,J), -999., present(ALBG_URB2D))
-            epsr_urb = merge(EPSR_URB2D(I,J), -999., present(EPSR_URB2D))
-            epsb_urb = merge(EPSB_URB2D(I,J), -999., present(EPSB_URB2D))
-            epsg_urb = merge(EPSG_URB2D(I,J), -999., present(EPSG_URB2D))
+            albr_urb = albr_urb2d(i,j)
+            albb_urb = albb_urb2d(i,j)
+            albg_urb = albg_urb2d(i,j)
+            epsr_urb = epsr_urb2d(i,j)
+            epsb_urb = epsb_urb2d(i,j)
+            epsg_urb = epsg_urb2d(i,j)
 !
 
 ! Call urban
