@@ -58802,6 +58802,8 @@ CONTAINS
                 cmcr_urb2d,tgr_urb2d,tgrl_urb3d,smr_urb3d,      & ! urban
                 drelr_urb2d,drelb_urb2d,drelg_urb2d,            & ! urban
                 flxhumr_urb2d,flxhumb_urb2d,flxhumg_urb2d,      &
+                albr_urb2d, albb_urb2d, albg_urb2d,             & !I explicit radiation PK2025
+                epsr_urb2d, epsb_urb2d, epsg_urb2d,             & !I explicit radiation PK2025
 ! subgrids
                numc,nump,sabv,sabg,lwup,snl, &
                 snowdp,wtc,wtp,h2osno,t_grnd,t_veg,         &
@@ -59228,6 +59230,15 @@ CONTAINS
      REAL, DIMENSION(1:num_road_layers) :: TGL_URB  ! road layer temp [K]
      LOGICAL  :: LSOLAR_URB
      
+!  Explicit radiation parameters PK2025
+     real :: albr_urb,albb_urb,albg_urb,epsr_urb,epsb_urb,epsg_urb
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: albr_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: albb_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: albg_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: epsr_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: epsb_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: epsg_urb2d
+
 !===Yang,2014/10/08,hydrological variable for single layer UCM===
      INTEGER :: jmonth, jday
      REAL :: DRELR_URB
@@ -60326,6 +60337,13 @@ has_urban_physics : &
             lf_urb_s = 0
             z0_urb = 0
             vegfrac = 0
+! Explicit radiation parameters PK2025
+            albr_urb = albr_urb2d(i,j)
+            albb_urb = albb_urb2d(i,j)
+            albg_urb = albg_urb2d(i,j)
+            epsr_urb = epsr_urb2d(i,j)
+            epsb_urb = epsb_urb2d(i,j)
+            epsg_urb = epsg_urb2d(i,j)
 !
 
 ! Call urban
@@ -60351,7 +60369,10 @@ has_urban_physics : &
                        UST_URB,mh_urb, stdh_urb, lf_urb, lp_urb,        & ! 0
 !sw++
 !                      hgt_urb,frc_urb,lb_urb, check)
-                       hgt_urb,frc_urb,lb_urb, check,CMCR_URB,TGR_URB,  & ! H
+                       hgt_urb,frc_urb,lb_urb, check,                   & ! H
+                       albr_urb, albb_urb,albg_urb,                     & ! I
+                       epsr_urb,epsb_urb,epsg_urb,                      & ! I
+                       CMCR_URB,TGR_URB,                                & ! H
                        TGRL_URB,SMR_URB,CMGR_URB, CHGR_URB, jmonth,     & ! H
                        DRELR_URB,DRELB_URB,                             & ! H
                        DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB,   &

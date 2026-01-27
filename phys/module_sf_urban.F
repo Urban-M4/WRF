@@ -8,7 +8,7 @@ use module_wrf_error
 #define FATAL_ERROR(M) call wrf_error_fatal( M )
 #define WRITE_MESSAGE(M) call wrf_message( M )
 #endif
-
+USE module_configure
 USE module_model_constants, ONLY :  piconst
 
 !===============================================================================
@@ -289,6 +289,7 @@ USE module_model_constants, ONLY :  piconst
 !     Kusaka et al. (2001) Bound.-Layer Meteor., vol.101, p329-358
 !
 ! History:
+!     2025/11,         modified by Peter Kalverla (NL eScience Center)   
 !     2014/10,         modified by Jiachuan Yang (ASU)
 !     2006/06          modified by H. Kusaka (Univ. Tsukuba), M. Tewari 
 !     2005/10/26,      modified by Fei Chen, Mukul Tewari
@@ -317,6 +318,8 @@ USE module_model_constants, ONLY :  piconst
                     CMR_URB,CHR_URB,CMC_URB,CHC_URB,                  & ! I/O
                     U10,V10,TH2,Q2,UST,mh_urb,stdh_urb,lf_urb,        & ! O 
                     lp_urb,hgt_urb,frc_urb,lb_urb,zo_check,           & ! O
+                    albr_urb, albb_urb,albg_urb,                      & ! I
+                    epsr_urb,epsb_urb,epsg_urb,                       & ! I
                     CMCR,TGR,TGRL,SMR,CMGR_URB,CHGR_URB,jmonth,       & ! H
                     DRELR,DRELB,DRELG,FLXHUMR,FLXHUMB,FLXHUMG,        &
                     lf_urb_s, z0_urb, vegfrac_in)
@@ -399,6 +402,17 @@ USE module_model_constants, ONLY :  piconst
    REAL, INTENT(INOUT) :: lb_urb   ! building surface to plan area ratio [-]
    REAL, INTENT(INOUT), DIMENSION(4) :: lf_urb   ! frontal area index [-]
    REAL, INTENT(INOUT) :: zo_check  ! check for printing ZOC
+!-------------------------------------------------------------------------------
+! I: Additional spatially explicit urban model parameters - PK2025
+!-------------------------------------------------------------------------------
+  REAL, INTENT(IN) :: albr_urb   ! surface albedo of roof [-]
+  REAL, INTENT(IN) :: albb_urb   ! surface albedo of building wall [-]
+  REAL, INTENT(IN) :: albg_urb   ! surface albedo of road [-]
+  REAL, INTENT(IN) :: epsr_urb   ! surface emissivity of roof [-]
+  REAL, INTENT(IN) :: epsb_urb   ! surface emissivity of building wall [-]
+  REAL, INTENT(IN) :: epsg_urb   ! surface emissivity of road [-]
+  CHARACTER(len=32) :: extra_var_name
+  INTEGER :: n_extra_vars
 
 !-------------------------------------------------------------------------------
 ! I: Distributed aerodynamics parameters
@@ -789,6 +803,27 @@ USE module_model_constants, ONLY :  piconst
 
  !End NUDAPT Modification
 
+! PK2025, use spatially explicit radiation parameters if provided
+ CALL nl_get_num_urb2d_additional_vars(1, n_extra_vars) 
+ do iteration = 1, n_extra_vars
+   CALL nl_get_urb2d_additional_vars(iteration, extra_var_name) 
+   select case(trim(extra_var_name))
+   case('ALBB')
+      if (albb_urb /= -999.) ALBB=albb_urb
+   case('ALBR')
+      if (albr_urb /= -999.) ALBR=albr_urb
+   case('ALBG')
+      if (albg_urb /= -999.) ALBG=albg_urb
+   case('EPSB')
+      if (epsb_urb /= -999.) EPSB=epsb_urb
+   case('EPSR')
+      if (epsr_urb /= -999.) EPSR=epsr_urb
+   case('EPSG')
+      if (epsg_urb /= -999.) EPSG=epsg_urb
+   case default
+       write(*,*) 'WARNING: Unknown urb2d additional variable: ', trim(extra_var_name)
+   end select
+end do
 
 ! Miao, 2007/01/17, cal. ah
    if(ahoption==1) AH=AH*ahdiuprf(tloc)
@@ -2740,7 +2775,7 @@ ENDIF
       LH_URB2D(I,J)=0.
       G_URB2D(I,J)=0.
       RN_URB2D(I,J)=0.
-      
+
 !m
 !FS   FRC_URB2D(I,J)=0.
       UTYPE_URB2D(I,J)=0

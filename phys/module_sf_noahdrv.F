@@ -68,6 +68,8 @@ CONTAINS
 !Optional Urban
                   TR_URB2D,TB_URB2D,TG_URB2D,TC_URB2D,QC_URB2D, & !H urban
                   UC_URB2D,                                     & !H urban
+                  albr_urb2d, albb_urb2d, albg_urb2d,           & !I urban explicit radiation PK2025
+                  epsr_urb2d, epsb_urb2d, epsg_urb2d,           & !I urban explicit radiation PK2025
                   XXXR_URB2D,XXXB_URB2D,XXXG_URB2D,XXXC_URB2D,  & !H urban
                   TRL_URB3D,TBL_URB3D,TGL_URB3D,                & !H urban
                   SH_URB2D,LH_URB2D,G_URB2D,RN_URB2D,TS_URB2D,  & !H urban
@@ -503,6 +505,15 @@ CONTAINS
      REAL, DIMENSION(1:num_wall_layers) :: TBL_URB  ! wall layer temp [K]
      REAL, DIMENSION(1:num_road_layers) :: TGL_URB  ! road layer temp [K]
      LOGICAL  :: LSOLAR_URB
+
+!  Explicit radiation parameters PK2025
+     real :: albr_urb,albb_urb,albg_urb,epsr_urb,epsb_urb,epsg_urb
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: albr_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: albb_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: albg_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: epsr_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: epsb_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: epsg_urb2d
 
 !===Yang,2014/10/08,hydrological variable for single layer UCM===
      INTEGER :: jmonth, jday, tloc
@@ -1428,6 +1439,14 @@ CONTAINS
             z0_urb = z0_urb2d(I, J)
             vegfrac = vegfra(I, J) / 100
 !
+! Explicit radiation parameters PK2025
+            albr_urb = albr_urb2d(i,j)
+            albb_urb = albb_urb2d(i,j)
+            albg_urb = albg_urb2d(i,j)
+            epsr_urb = epsr_urb2d(i,j)
+            epsb_urb = epsb_urb2d(i,j)
+            epsg_urb = epsg_urb2d(i,j)
+!
 ! Call urban
             CALL cal_mon_day(julian,julyr,jmonth,jday)
             CALL urban(LSOLAR_URB,                                      & ! I
@@ -1447,7 +1466,10 @@ CONTAINS
                        CMR_URB, CHR_URB, CMC_URB, CHC_URB,              &
                        U10_URB, V10_URB, TH2_URB, Q2_URB,               & ! O
                        UST_URB,mh_urb, stdh_urb, lf_urb, lp_urb,        & ! 0
-                       hgt_urb,frc_urb,lb_urb, check,CMCR_URB,TGR_URB,  & ! H
+                       hgt_urb,frc_urb,lb_urb,                          & ! H
+                       albr_urb, albb_urb,albg_urb,                     & ! I
+                       epsr_urb,epsb_urb,epsg_urb,                      & ! I
+                       check,CMCR_URB,TGR_URB,                          & ! H
                        TGRL_URB,SMR_URB,CMGR_URB,CHGR_URB,jmonth,       & ! H
                        DRELR_URB,DRELB_URB,                             & ! H
                        DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB,   &
@@ -2390,6 +2412,8 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
 !Optional Urban
                   TR_URB2D,TB_URB2D,TG_URB2D,TC_URB2D,QC_URB2D, & !H urban
                   UC_URB2D,                                     & !H urban
+                  albr_urb2d, albb_urb2d, albg_urb2d,           & !I urban explicit radiation PK2025
+                  epsr_urb2d, epsb_urb2d, epsg_urb2d,           & !I urban explicit radiation PK2025
                   XXXR_URB2D,XXXB_URB2D,XXXG_URB2D,XXXC_URB2D,  & !H urban
                   TRL_URB3D,TBL_URB3D,TGL_URB3D,                & !H urban
                   SH_URB2D,LH_URB2D,G_URB2D,RN_URB2D,TS_URB2D,  & !H urban
@@ -2835,6 +2859,15 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
      REAL, DIMENSION(1:num_wall_layers) :: TBL_URB  ! wall layer temp [K]
      REAL, DIMENSION(1:num_road_layers) :: TGL_URB  ! road layer temp [K]
      LOGICAL  :: LSOLAR_URB
+
+!  Explicit radiation parameters PK2025
+     real :: albr_urb,albb_urb,albg_urb,epsr_urb,epsb_urb,epsg_urb
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: albr_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: albb_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: albg_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: epsr_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: epsb_urb2d
+     real, optional, dimension( ims:ime, jms:jme ), intent(in) :: epsg_urb2d
 
 !===Yang,2014/10/08,hydrological variable for single layer UCM===
      INTEGER :: jmonth, jday, tloc
@@ -3883,6 +3916,14 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                   lf_urb_s = lf_urb2d_s(I, J)
                   z0_urb = z0_urb2d(I, J)
                   vegfrac = vegfra(I, J) / 100.
+      ! Explicit radiation parameters PK2025
+                  albr_urb = albr_urb2d(i,j)
+                  albb_urb = albb_urb2d(i,j)
+                  albg_urb = albg_urb2d(i,j)
+                  epsr_urb = epsr_urb2d(i,j)
+                  epsb_urb = epsb_urb2d(i,j)
+                  epsg_urb = epsg_urb2d(i,j)
+!
       !
       ! Call urban
                   CALL cal_mon_day(julian,julyr,jmonth,jday)      
@@ -3903,7 +3944,10 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                              CMR_URB, CHR_URB, CMC_URB, CHC_URB,              &
                              U10_URB, V10_URB, TH2_URB, Q2_URB,               & ! O
                              UST_URB,mh_urb, stdh_urb, lf_urb, lp_urb,        & ! 0
-                             hgt_urb,frc_urb,lb_urb, check,CMCR_URB,TGR_URB,  & ! H
+                             hgt_urb,frc_urb,lb_urb,                          & ! H
+                             albr_urb, albb_urb,albg_urb,                     & ! I
+                             epsr_urb,epsb_urb,epsg_urb,                      & ! I
+                             check,CMCR_URB,TGR_URB,                          & ! H
                              TGRL_URB,SMR_URB,CMGR_URB,CHGR_URB,jmonth,       & ! H
                              DRELR_URB,DRELB_URB,                             & ! H
                              DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB,   &
@@ -4762,7 +4806,14 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                   lf_urb_s = lf_urb2d_s(I, J)
                   z0_urb = z0_urb2d(I, J)
                   vegfrac = vegfra(I, J) / 100.0
-
+      ! Explicit radiation parameters PK2025
+                  albr_urb = albr_urb2d(i,j)
+                  albb_urb = albb_urb2d(i,j)
+                  albg_urb = albg_urb2d(i,j)
+                  epsr_urb = epsr_urb2d(i,j)
+                  epsb_urb = epsb_urb2d(i,j)
+                  epsg_urb = epsg_urb2d(i,j)
+      !
       !
       ! Call urban
                   CALL cal_mon_day(julian,julyr,jmonth,jday)        
@@ -4783,7 +4834,10 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                              CMR_URB, CHR_URB, CMC_URB, CHC_URB,              &
                              U10_URB, V10_URB, TH2_URB, Q2_URB,               & ! O
                              UST_URB,mh_urb, stdh_urb, lf_urb, lp_urb,        & ! 0
-                             hgt_urb,frc_urb,lb_urb, check,CMCR_URB,TGR_URB,  & ! H
+                             hgt_urb,frc_urb,lb_urb,                          & ! H
+                             albr_urb, albb_urb,albg_urb,                     & ! I
+                             epsr_urb,epsb_urb,epsg_urb,                      & ! I
+                             check,CMCR_URB,TGR_URB,                          & ! H
                              TGRL_URB,SMR_URB,CMGR_URB,CHGR_URB,jmonth,       & ! H
                              DRELR_URB,DRELB_URB,                             & ! H
                              DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB,   &
